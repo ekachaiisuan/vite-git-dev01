@@ -1,30 +1,49 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import { reactive } from 'vue'
+let formData = reactive({
+  firstname:"",
+  lastname:"",
+  age:0,
+  gender:"",
+  interests:[],
+  description:""
+})
+
+const gendersList = ['ชาย','หญิง','ได้หมด','สดชื่น']
+const interestsList = ['ฟุตบอล','ปิงปอง','แบต']
+
+const submitData = ()=>{
+  console.log('formData', JSON.parse(JSON.stringify(formData)))
+}
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="container">
+    <div>
+      <label>ชื่อจริง</label><input type="text" v-model="formData.firstname">
+    </div>
+    <div>
+      <label>นามสกุล</label><input type="text" v-model="formData.lastname">
+    </div>
+    <div>
+      <label>อายุ</label><input type="number"  v-model="formData.age">
+    </div>
+    <div>
+      <div>เพศ</div>
+      <div v-for="gender in gendersList">
+        <input type="radio" :value="gender">{{ gender }}
+      </div>
+    </div>
+    <div>
+      <button @click="submitData">submit</button>
+    </div>
+
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+<style>
+.container {
+  width: 100%;
+  margin: 0;
 }
 </style>
